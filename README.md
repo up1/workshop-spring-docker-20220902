@@ -114,5 +114,31 @@ $java -Djarmode=layertools -jar target/demo-spring-0.0.1-SNAPSHOT.jar extract
 
 Create Dockerfile_02
 ```
+FROM openjdk:17.0.2-jdk-slim-buster as step1
+WORKDIR /app
+COPY .mvn .mvn
+COPY mvnw .
+COPY pom.xml .
+COPY src src
+RUN --mount=type=cache,target=/root/.m2,rw ./mvnw package
+
+FROM openjdk:17.0.2-jdk-slim-buster as step2
+WORKDIR /app
+COPY --from=step1 /app/target/*.jar app.jar
+RUN java -Djarmode=layertools -jar app.jar extract
+
+FROM openjdk:17.0.2-jdk-slim-buster
+WORKDIR /app
+COPY --from=step2 /app/dependencies/ .
+COPY --from=step2 /app/snapshot-dependencies/ .
+COPY --from=step2 /app/application/ .
+COPY --from=step2 /app/spring-boot-loader/ .
+CMD ["java", "org.springframework.boot.loader.JarLauncher"]
+```
+
+Run
+```
+$docker image build -t spring:2.0 -f Dockerfile_02 .
+$docker container run spring:2.0
 ```
 

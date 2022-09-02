@@ -42,4 +42,5 @@ CMD ["java", "-jar", "app.jar"]
 Step to run
 ```
 $docker image build -t spring:1.0 .
+$docker container run spring:1.0
 ```

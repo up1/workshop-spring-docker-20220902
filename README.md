@@ -57,3 +57,23 @@ COPY pom.xml .
 COPY src src
 RUN ./mvnw package
 ```
+
+## Step 5 :: Cached from Docker Buildkit
+
+Dockerfile
+```
+FROM openjdk:17.0.2-jdk-slim-buster as step1
+WORKDIR /app
+COPY .mvn .mvn
+COPY mvnw .
+COPY pom.xml .
+COPY src src
+RUN --mount=type=cache,target=/root/.m2,rw ./mvnw package
+```
+
+Step to run
+```
+$DOCKER_BUILDKIT=1 docker image build -t spring:1.0 . --progress=plain --no-cache
+
+$DOCKER_BUILDKIT=1 docker image build -t spring:1.0 . --progress=plain
+```

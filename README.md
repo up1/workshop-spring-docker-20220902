@@ -144,6 +144,8 @@ $docker container run spring:2.0
 
 ## Step 7 :: Working with Docker compose
 ```
+$export DOCKER_BUILDKIT=1 
+$export COMPOSE_DOCKER_CLI_BUILD=1
 $docker-compose build app_1
 $docker-compose build app_2
 $docker-compose build

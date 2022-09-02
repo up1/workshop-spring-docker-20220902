@@ -4,7 +4,7 @@ COPY .mvn .mvn
 COPY mvnw .
 COPY pom.xml .
 COPY src src
-RUN ./mvnw package
+RUN --mount=type=cache,target=/root/.m2,rw ./mvnw package
 
 FROM openjdk:17.0.2-jdk-slim-buster
 WORKDIR /app

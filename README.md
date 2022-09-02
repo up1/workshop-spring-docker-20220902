@@ -44,3 +44,16 @@ Step to run
 $docker image build -t spring:1.0 .
 $docker container run spring:1.0
 ```
+
+## Step 4 :: Copy files and fodlers
+
+Dockerfile
+```
+FROM openjdk:17.0.2-jdk-slim-buster as step1
+WORKDIR /app
+COPY .mvn .mvn
+COPY mvnw .
+COPY pom.xml .
+COPY src src
+RUN ./mvnw package
+```

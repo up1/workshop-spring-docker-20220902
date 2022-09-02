@@ -1,6 +1,9 @@
 FROM openjdk:17.0.2-jdk-slim-buster as step1
 WORKDIR /app
-COPY . .
+COPY .mvn .mvn
+COPY mvnw .
+COPY pom.xml .
+COPY src src
 RUN ./mvnw package
 
 FROM openjdk:17.0.2-jdk-slim-buster

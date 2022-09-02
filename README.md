@@ -142,3 +142,13 @@ $docker image build -t spring:2.0 -f Dockerfile_02 .
 $docker container run spring:2.0
 ```
 
+## Step 7 :: Working with Docker compose
+```
+$docker-compose build app_1
+$docker-compose build app_2
+$docker-compose build
+
+$docker-compose up -d
+$docker-compose ps
+```
+

@@ -45,7 +45,7 @@ $docker image build -t spring:1.0 .
 $docker container run spring:1.0
 ```
 
-## Step 4 :: Copy files and fodlers
+## Step 4 :: Copy only files and folders are used in the building process
 
 Dockerfile
 ```

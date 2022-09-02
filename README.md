@@ -77,3 +77,42 @@ $DOCKER_BUILDKIT=1 docker image build -t spring:1.0 . --progress=plain --no-cach
 
 $DOCKER_BUILDKIT=1 docker image build -t spring:1.0 . --progress=plain
 ```
+
+## Step 6 :: Working with Layers JAR
+
+pom.xml
+```
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <layers>
+                    <enabled>true</enabled>
+                </layers>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+Build with maven
+```
+$./mvnw package
+```
+
+List of layers jar from jar file
+```
+$java -Djarmode=layertools -jar target/demo-spring-0.0.1-SNAPSHOT.jar list
+```
+
+Extract layers jar
+```
+$java -Djarmode=layertools -jar target/demo-spring-0.0.1-SNAPSHOT.jar extract
+```
+
+Create Dockerfile_02
+```
+```
+
